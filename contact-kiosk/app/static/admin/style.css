@@ -1,0 +1,196 @@
+:root {
+  --ink: #1f2421;
+  --muted: #6b7068;
+  --line: #e4e1d8;
+  --accent: #b19663;
+  --accent-dark: #4f3d21;
+  --bg: #faf8f3;
+  --danger: #b3432f;
+  --warn: #b3832f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.muted { color: var(--muted); }
+
+/* Login card visuals only - show/hide of #view-login itself is controlled
+   via inline style.display in JS, not a CSS class, specifically so a
+   stylesheet rule can never end up overriding it (this bit us once
+   already with an ID-selector display rule fighting a class toggle). */
+.login-card {
+  background: white;
+  border-radius: 18px;
+  padding: 40px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+.login-card input {
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  margin: 16px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Header / tabs */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 28px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+header h1 { font-size: 18px; margin: 0; }
+.header-actions { display: flex; gap: 16px; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px 28px 0;
+}
+.tab {
+  border: none;
+  background: var(--line);
+  color: var(--muted);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.tab.active { background: var(--accent); color: white; }
+
+main#contact-list {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 28px 60px;
+}
+
+/* Contact cards */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+}
+.contact-card img, .contact-card .placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--line);
+  flex-shrink: 0;
+}
+.contact-card .info { flex: 1; min-width: 0; }
+.contact-card .name { font-weight: 600; font-size: 15px; }
+.contact-card .meta { font-size: 13px; color: var(--muted); }
+.contact-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+.badge.pending { background: #f6e6c8; color: var(--warn); }
+.badge.approved { background: #dcedd9; color: var(--accent-dark); }
+.badge.rejected { background: #f3d8d3; color: var(--danger); }
+
+.empty-state { color: var(--muted); text-align: center; padding: 60px 0; }
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-text {
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-secondary { background: var(--line); color: var(--ink); }
+.btn-text { background: none; color: var(--accent-dark); text-decoration: none; display: inline-block; }
+.btn-danger { background: #f3d8d3; color: var(--danger); }
+button:disabled { opacity: 0.5; cursor: default; }
+
+/* Modals */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal h2 { margin: 0 0 16px; font-size: 18px; }
+.modal h3 { font-size: 14px; margin: 16px 0 8px; }
+.modal label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.modal label input[type="text"], .modal label input[type="email"] {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.modal input[type="password"] {
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.modal hr { border: none; border-top: 1px solid var(--line); margin: 20px 0; }
+.toggle-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.toggle-row input { margin-top: 2px; }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.error { color: var(--danger); font-size: 13px; }
+.success { color: var(--accent-dark); font-size: 13px; }

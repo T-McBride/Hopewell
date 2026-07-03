@@ -1,0 +1,29 @@
+[Unit]
+Description=Kiosk Chromium browser
+After=contact-kiosk.service graphical.target
+Requires=contact-kiosk.service
+
+[Service]
+Type=simple
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+# --kiosk: fullscreen, no chrome UI, no way to navigate away
+# --noerrdialogs / --disable-session-crashed-bubble: hide crash/restore prompts
+# --disable-pinch: ignore touchscreen pinch-zoom gestures
+# --check-for-update-interval / --simulate-outdated-no-au: skip update nag screens
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/bin/chromium-browser \
+  --kiosk \
+  --noerrdialogs \
+  --disable-session-crashed-bubble \
+  --disable-infobars \
+  --disable-pinch \
+  --overscroll-history-navigation=0 \
+  --autoplay-policy=no-user-gesture-required \
+  --app=http://localhost:8000/kiosk/
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical.target

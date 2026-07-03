@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directory admin</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<!-- Login -->
+<section id="view-login" style="display:flex; min-height:100vh; align-items:center; justify-content:center;">
+  <div class="login-card">
+    <h1>Directory admin</h1>
+    <p class="muted">Enter the admin PIN to continue.</p>
+    <input type="password" id="login-pin" placeholder="PIN" inputmode="numeric" autofocus>
+    <button id="login-btn" class="btn-primary">Log in</button>
+    <p class="error" id="login-error" hidden></p>
+  </div>
+</section>
+
+<!-- Main admin view -->
+<section id="view-main" style="display:none;">
+  <header>
+    <h1>Directory admin</h1>
+    <div class="header-actions">
+      <button class="btn-text" id="open-kiosk">Kiosk</button>
+      <button class="btn-text" id="open-settings">Settings</button>
+      <button class="btn-text" id="logout-btn">Log out</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-status="pending">Pending</button>
+    <button class="tab" data-status="approved">Approved</button>
+    <button class="tab" data-status="rejected">Rejected</button>
+    <button class="tab" data-status="all">All</button>
+  </nav>
+
+  <main id="contact-list"></main>
+</section>
+
+<!-- Edit modal -->
+<div class="modal-overlay" id="edit-modal-overlay">
+  <div class="modal">
+    <h2>Edit contact</h2>
+    <label>Full name <input type="text" id="edit-name"></label>
+    <label>Mobile phone <input type="text" id="edit-phone"></label>
+    <label>Email <input type="email" id="edit-email"></label>
+    <label>Home address <input type="text" id="edit-address"></label>
+    <label>City <input type="text" id="edit-city"></label>
+    <label>State <input type="text" id="edit-state"></label>
+    <label>Zip <input type="text" id="edit-zip"></label>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="edit-cancel">Cancel</button>
+      <button class="btn-primary" id="edit-save">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings / directory generation modal -->
+<div class="modal-overlay" id="settings-modal-overlay">
+  <div class="modal">
+    <h2>Directory &amp; settings</h2>
+
+    <div class="setting-row">
+      <label class="toggle-row">
+        <input type="checkbox" id="setting-include-address">
+        Include home addresses by default when generating the printed directory
+      </label>
+    </div>
+
+    <hr>
+
+    <h3>Generate printed directory</h3>
+    <label class="toggle-row">
+      <input type="checkbox" id="generate-include-address">
+      Include home addresses in this PDF
+    </label>
+    <button class="btn-primary" id="generate-pdf-btn">Download PDF directory</button>
+    <a class="btn-text" href="/api/directory.html" target="_blank" rel="noopener">View live web directory</a>
+
+    <hr>
+
+    <h3>Change admin PIN</h3>
+    <input type="password" id="new-pin" placeholder="New PIN (4+ digits)" inputmode="numeric">
+    <button class="btn-secondary" id="change-pin-btn">Update PIN</button>
+    <p class="error" id="settings-error" hidden></p>
+    <p class="success" id="settings-success" hidden></p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" id="settings-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js?v=3"></script>
+</body>
+</html>

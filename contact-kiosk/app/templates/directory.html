@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hopewell directory</title>
+<style>
+  :root {
+    --ink: #1f2421;
+    --muted: #6b7068;
+    --line: #e4e1d8;
+    --accent: #2f6f4f;
+    --bg: #faf8f3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  header {
+    padding: 28px 24px 16px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  header h1 {
+    font-size: 22px;
+    margin: 0 0 4px;
+    font-weight: 600;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  #search {
+    width: 100%;
+    max-width: 760px;
+    display: block;
+    margin: 0 auto 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: white;
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 24px 60px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row img, .row .placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--line);
+    flex-shrink: 0;
+  }
+  .row .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .name { font-weight: 600; font-size: 15px; }
+  .meta { font-size: 13px; color: var(--muted); }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Hopewell directory</h1> 
+  <p>{{ contacts|length }} contact{{ "s" if contacts|length != 1 else "" }}</p>
+</header>
+<main>
+  <input id="search" type="text" placeholder="Search by name...">
+  <div id="list">
+    {% for c in contacts %}
+    <div class="row" data-name="{{ c.full_name|lower }}">
+      {% if c.photo_path %}
+        <img src="/api/photos/{{ c.photo_path }}" alt="">
+      {% else %}
+        <div class="placeholder">{{ c.full_name[0]|upper }}</div>
+      {% endif %}
+      <div>
+        <div class="name">{{ c.full_name }}</div>
+        <div class="meta">
+          {% if c.phone_mobile %}{{ c.phone_mobile }}{% endif %}
+          {% if c.phone_mobile and c.email %} &middot; {% endif %}
+          {% if c.email %}{{ c.email }}{% endif %}
+        </div>
+        <div class="meta">
+        {% if c.home_address and include_home_address %}{{ c.home_address }}{% endif %}
+        {% if c.city %}{{ c.city }}{% endif %}
+        {% if c.state %}{{ c.state }}{% endif %}
+        
+
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <p class="empty">No approved entries yet.</p>
+    {% endfor %}
+  </div>
+</main>
+<script>
+  const search = document.getElementById('search');
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    document.querySelectorAll('#list .row').forEach(row => {
+      row.style.display = row.dataset.name.includes(q) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

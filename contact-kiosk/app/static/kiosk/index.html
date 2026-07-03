@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Add yourself to the directory</title>
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<!-- 1. Welcome / idle screen -->
+<section class="screen active" id="screen-welcome">
+  <div class="welcome-card">
+    <img class="logo" src="../images/HW.svg"/>
+    <h1>Hopewell directory</h1>
+    <p class="subtitle">Add your contact info and photo to be included in the church directory.</p>
+    <button class="btn-primary btn-huge" id="btn-start">Tap to begin</button>
+  </div>
+</section>
+
+<!-- 2. Enter details -->
+<section class="screen" id="screen-form">
+  <div class="card">
+    <h2>Your details</h2>
+    <form id="contact-form">
+      <label>
+        Full name <span class="required">*</span>
+        <input type="text" id="field-name" required autocomplete="off">
+      </label>
+      <label>
+        Mobile phone
+        <input type="tel" id="field-phone" autocomplete="off">
+      </label>
+      <label>
+        Email
+        <input type="email" id="field-email" autocomplete="off">
+      </label>
+      <label>
+        Home address <span class="optional">(kept private - admin use only)</span>
+        <input type="text" id="field-address" autocomplete="off">
+      </label>
+      <label>
+        City <span class="optional">(kept private - admin use only)</span>
+        <input type="text" id="field-city" autocomplete="off">
+      </label>
+      <label>
+        State <span class="optional">(kept private - admin use only)</span>
+        <input type="text" id="field-state" autocomplete="off">
+      </label>
+      <label>
+        Zip <span class="optional">(kept private - admin use only)</span>
+        <input type="text" id="field-zip" autocomplete="off">
+      </label>
+
+    </form>
+    <div class="nav-row">
+      <button class="btn-secondary" id="form-back">Back</button>
+      <button class="btn-primary" id="form-next">Next: take photo</button>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Camera capture -->
+<section class="screen" id="screen-camera">
+  <div class="card card-wide">
+    <h2>Take your photo</h2>
+    <div class="camera-wrap">
+      <video id="camera-video" autoplay playsinline muted></video>
+      <canvas id="camera-canvas" hidden></canvas>
+      <div class="camera-guide"></div>
+      <div class="countdown-overlay" id="countdown-overlay" hidden>
+        <span id="countdown-number">3</span>
+      </div>
+    </div>
+    <p class="hint" id="camera-hint">Center your face in the circle, then tap capture.</p>
+    <div class="nav-row">
+      <button class="btn-secondary" id="camera-back">Back</button>
+      <button class="btn-primary btn-huge" id="camera-capture">Capture photo</button>
+      <button class="btn-secondary" id="camera-skip">Skip photo</button>
+    </div>
+  </div>
+</section>
+
+<!-- 3.5 Photo review / retake -->
+<section class="screen" id="screen-photo-review">
+  <div class="card card-wide">
+    <h2>How does this look?</h2>
+    <div class="photo-review-wrap">
+      <img id="photo-review-img" alt="Your captured photo">
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" id="photo-retake">Retake</button>
+      <button class="btn-primary btn-huge" id="photo-continue">Use this photo</button>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Review + consent -->
+<section class="screen" id="screen-review">
+  <div class="card">
+    <h2>Review your entry</h2>
+    <div class="review-row">
+      <img id="review-photo" alt="Your photo">
+      <div class="review-fields">
+        <div><strong id="review-name"></strong></div>
+        <div id="review-phone" class="meta"></div>
+        <div id="review-email" class="meta"></div>
+        <div id="review-address" class="meta"></div>
+        <div id="review-city" class="meta"></div>
+        <div id="review-state" class="meta"></div>
+        <div id="review-zip" class="meta"></div>
+
+      </div>
+    </div>
+    <label class="consent-row">
+      <input type="checkbox" id="field-consent">
+      I agree to be listed in the office directory with this photo and contact info.
+    </label>
+    <div class="nav-row">
+      <button class="btn-secondary" id="review-back">Edit</button>
+      <button class="btn-primary btn-huge" id="review-submit">Submit</button>
+    </div>
+    <p class="error" id="review-error" hidden></p>
+  </div>
+</section>
+
+<!-- 5. Confirmation -->
+<section class="screen" id="screen-done">
+  <div class="welcome-card">
+    <div class="checkmark">&#10003;</div>
+    <h1>Thanks!</h1>
+    <p class="subtitle">Your entry has been submitted for review.</p>
+    <p class="hint">Returning to start in <span id="countdown">10</span>s...</p>
+  </div>
+</section>
+
+<script src="app.js?v=2"></script>
+</body>
+</html>
